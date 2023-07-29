@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { useNavigate, useLocation } from 'react-router-dom'
 import React from "react";
 import Card from "../partials/Card";
@@ -30,7 +30,7 @@ function WithdrawPage() {
     let { from } = location.state || { from: { pathname: "/" } };
 
     return (<>
-      <h5>User Successfully Withdrawn from Their Account</h5>
+      <h5>User has Successfully Withdrawn from Their Account</h5>
       <button type="submit" 
         className="btn btn-light" 
         onClick={() => props.setShow(true)}>
@@ -48,10 +48,10 @@ function WithdrawPage() {
     const { dispatch } = useBalancesContext();
     const { user } = useAuthContext();
 
-    const [title, setTitle]   = useState('Withdraw');
+    const [title]   = useState('Withdraw');
     const [amount, setAmount] = useState('');
     const [error, setError] = useState('');
-    
+    const [emptyFields, setEmptyFields] = useState([])
   
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -75,9 +75,11 @@ function WithdrawPage() {
 
       if (!response.ok) {
         setError(json.error)
+        setEmptyFields(json.emptyFields)
       }
       if (response.ok) {
         setError(null)
+        setEmptyFields([])
         console.log('new withdraw added', json)
         dispatch({type: 'CREATE_BALANCE', payload: json})
       }
@@ -91,7 +93,7 @@ function WithdrawPage() {
   
       Amount<br/>
       <input type="number" 
-        className="form-control" 
+        className={emptyFields.includes('amount') ? 'error': ''}
         placeholder="Enter amount" 
         value={amount} 
         onChange={e => setAmount(e.currentTarget.value)}

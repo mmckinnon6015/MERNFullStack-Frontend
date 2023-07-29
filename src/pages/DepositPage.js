@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useNavigate, useLocation } from 'react-router-dom'
 import React from "react";
 import Card from "../partials/Card";
@@ -31,7 +31,7 @@ function DepositPage() {
     let { from } = location.state || { from: { pathname: "/" } };
 
     return (<>
-      <h5>User Successfully Deposited into Their Account</h5>
+      <h5>User has Successfully Deposited into Their Account</h5>
       <button type="submit" 
         className="btn btn-light" 
         onClick={() => props.setShow(true)}>
@@ -49,9 +49,10 @@ function DepositPage() {
     const { dispatch } = useBalancesContext();
     const { user } = useAuthContext();
 
-    const [title, setTitle]   = useState('Deposit');
+    const [title]   = useState('Deposit');
     const [amount, setAmount] = useState('');
     const [error, setError] = useState('');
+    const [emptyFields, setEmptyFields] = useState([])
     
   
     const handleSubmit = async (e) => {
@@ -76,6 +77,7 @@ function DepositPage() {
 
       if (!response.ok) {
         setError(json.error)
+        setEmptyFields(json.emptyFields)
       }
       if (response.ok) {
         setError(null)

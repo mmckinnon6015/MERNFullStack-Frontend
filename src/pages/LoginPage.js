@@ -2,7 +2,7 @@ import { useState } from 'react'
 import React from 'react';
 import Card from '../partials/Card';
 import { useLogin } from '../hooks/useLogin';
-
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function LoginPage () {
     
@@ -22,12 +22,21 @@ function LoginPage () {
 }
 
 function LoginMsg(props){
+  const navigate = useNavigate();
+  const location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
+
   return(<>
-    <h5>Success</h5>
+    <h5>User Did Not Log In</h5>
     <button type="submit" 
+        className="btn btn-light" 
+        onClick={() => navigate(from)}>
+          Create an Account
+      </button>
+      <button type="submit" 
       className="btn btn-light" 
       onClick={() => props.setShow(true)}>
-        Authenticate again
+        Try to Authenticate Again
     </button>
   </>);
 }

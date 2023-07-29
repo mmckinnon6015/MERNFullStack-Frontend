@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../partials/Card";
-import { useNavigate, useLocation } from 'react-router-dom'
+
 import { useEffect, useState } from "react";
 import BalanceDetails from '../components/BalanceDetails'
 import { useBalancesContext } from "../hooks/useBalancesContext";

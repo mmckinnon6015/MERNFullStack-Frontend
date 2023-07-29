@@ -148,3 +148,15 @@ body {
   border-radius: 50%;
   color: #333;
 }
+
+div.error {
+  padding: 10px;
+  background: #f1f1f1;
+  border: 1px solid red;
+  color: red;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+input.error {
+  border: 1px solid red;
+}

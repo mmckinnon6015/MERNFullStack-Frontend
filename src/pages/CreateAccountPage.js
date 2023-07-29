@@ -9,7 +9,7 @@ import { useSignup } from '../hooks/useSignup';
 function CreateAccountPage() {
 
     
-    const [show, setShow]     = useState(true);
+    const [show, setShow] = useState(true);
     const [status] = useState('');
 
 
@@ -27,24 +27,35 @@ function CreateAccountPage() {
   }
   
   function CreateMsg(props){
-    
+    const navigate = useNavigate();
+    const location = useLocation();
+    let { from } = location.state || { from: { pathname: "/login" } };
+     
+
     return(<>
-      
-    </>);
+      <h5>User Did Not Create an Account</h5>
+    <button type="submit" 
+        className="btn btn-light" 
+        onClick={() => navigate(from)}>
+          Log into an Account
+      </button>
+      <button type="submit" 
+      className="btn btn-light" 
+      onClick={() => props.setShow(true)}>
+        Try to Create an Account Again
+    </button>
+  </>);
   }
   
   function CreateForm(props){
     const [email, setEmail]       = useState('');
     const [password, setPassword] = useState('');
     const {signup, error, isLoading} = useSignup()
-    const navigate = useNavigate();
-    const location = useLocation();
-    let { from } = location.state || { from: { pathname: "/" } };
+    
      
   
     const handle = async (e) => {
       e.preventDefault()
-      navigate(from)
       await signup(email, password)
       props.setShow(false);
     }    
