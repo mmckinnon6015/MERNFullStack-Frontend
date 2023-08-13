@@ -65,7 +65,8 @@ function CreateAccountPage() {
     <form name="createAcctForm" onSubmit={handle} >
         
       Email address<br/>
-      <input type="input" 
+      email must include .com at end<br/>
+      <input type="email" 
         className="form-control" 
         placeholder="Enter email" 
         value={email} 
@@ -74,13 +75,14 @@ function CreateAccountPage() {
         /><br/>
   
       Password<br/>
-      *must include special character*<br/>
       <input type="password" 
         className="form-control" 
         placeholder="Enter password" 
         value={password} 
         onChange={e => setPassword(e.currentTarget.value)}
-        minLength="8"
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*]).{8,}"
+        title="at least one number and one uppercase and lowercase letter, one special character, and at least 8 or more characters"
+        required
         /><br/>
   
         <button type="submit" 
